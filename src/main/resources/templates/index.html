@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Spring-JQuery</title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+<body>
+	<div class="container">
+
+
+		<div class="card">
+			<div class="card-header">Spring-JQuery</div>
+			<div class="card-body">
+				<div class="row justify-content-center">
+					<h5 class="card-title">"Spring-JQuery" - Serialize Entire Form</h5>
+				</div>
+
+				<form action="#" method="post">
+
+<!-- 					<div class="form-group row"> -->
+<!-- 					<label for="name" class="col-md-3 text-right text-muted">Id</label> -->
+<!-- 						<div class="col-md-6"> -->
+<!-- 							<input -->
+<!-- 								class="form-control form-control-sm" type="number" name="id" -->
+<!-- 								id="id" /> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+
+					<div class="form-group row">
+						<label for="name" class="col-md-3 text-right text-muted">Name</label>
+						<div class="col-md-6">
+							<input class="form-control form-control-sm" type="text"
+								name="name" id="name" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="firstname" class="col-md-3 text-right text-muted">Email</label>
+						<div class="col-md-6">
+							<input class="form-control form-control-sm" type="text"
+								name="email" id="email" />
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label for="hobbies" class="col-md-3 text-right text-muted">Hobbies</label>
+						<div class="col-md-3">
+<!-- 						<input class="form-control form-control-sm" type="text" -->
+<!-- 								name="hobbies" id="hobbies" /> -->
+							<select class="form-control form-control-sm" name="hobbies"
+								multiple="multiple" size="5" id="hobbies">
+								<option value="Hobby_Sports" selected="selected">Sports</option>
+								<option value="Hobby_Music">Music</option>
+								<option value="Hobby_Blogs" selected="selected">Blogging</option>
+								<option value="Hobby_Cooking">Cooking</option>
+								<option value="Hobby_Travel" selected="selected">Travel</option>
+							</select>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label for="specialization" class="col-md-3 text-right text-muted">Specialization</label>
+						<div class="col-md-6">
+<!-- 						<input class="form-control form-control-sm" type="text" -->
+<!-- 								name="specialization" id="specialization" /> -->
+							<input type="checkbox" name="specialization" value="Java"
+								id="specialization"> <label for="ch1" class="mr-4">Java</label> <input
+								type="checkbox" name="specialization" value="Spring" id="specialization">
+							<label for="ch2" class="mr-4">Spring</label><input
+								type="checkbox" name="specialization" value="SpringBoot"
+								checked="checked" id="specialization"> <label for="ch3"
+								class="mr-4">SpringBoot</label><input type="checkbox"
+								name="specialization" value="JQuery" checked="checked" id="specialization">
+							<label for="ch4" class="mr-4">JQuery</label>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label for="firstname" class="col-md-3 text-right text-muted">Gender</label>
+						<div class="col-md-6">
+<!-- 						<input class="form-control form-control-sm" type="text" -->
+<!-- 								name="gender" id="gender" /> -->
+							<input type="radio" name="gender" value="Male" checked="checked"
+								id="gender"> <label for="r1" class="mr-4">Male</label> <input
+								type="radio" name="gender" value="Female" id="gender"> <label
+								for="r2" class="mr-4">Female</label><input type="radio"
+								name="gender" value="NotSpecified" id="gender"> <label
+								for="r3" class="mr-4">NotSpecified</label>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="nationality" class="col-md-3 text-right text-muted">Nationality</label>
+						<div class="col-md-3">
+<!-- 						<input class="form-control form-control-sm" type="text" -->
+<!-- 								name="nationality" id="nationality" /> -->
+							<select class="form-control form-control-sm" name="nationality" id="nationality">
+								<option value="India" selected="selected">India</option>
+								<option value="USA">United States of America</option>
+								<option value="Israel">Israel</option>
+								<option value="Singapore">Singapore</option>
+								<option value="Russia">Russia</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="firstname" class="col-md-3 text-right text-muted"></label>
+						<div class="col-md-6">
+							<input class="btn btn-sm btn-block btn-primary" type="submit"
+								value="Send" />
+						</div>
+					</div>
+				</form>
+
+			</div>
+			<p class="alert alert-success" id="results"></p>
+		</div>
+		
+	</div>
+
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery-validation/jquery.validate.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script>
+		(function($) {
+			$.fn.serializeFormJSON = function() {
+
+				var obj = {};
+				var arr = this.serializeArray();
+				$.each(arr, function() {
+					if (obj[this.name]) {
+						if (!obj[this.name].push) {
+							obj[this.name] = [ obj[this.name] ];
+						}
+						obj[this.name].push(this.value || '');
+					} else {
+						obj[this.name] = this.value || '';
+					}
+				});
+				return obj;
+			};
+		})(jQuery);
+
+		$('form').submit(function(e) {
+			e.preventDefault();
+			
+			
+			//var myformdata = $(this).serializeFormJSON();
+			
+
+			var myformdata = {};
+			myformdata["id"] = $("#id").val();
+			myformdata["name"] = $("#name").val();
+			myformdata["email"] = $("#email").val();
+			myformdata["hobbies"] = $("#hobbies").val().toString();
+			myformdata["specialization"] = $("#specialization").val().toString();
+			myformdata["gender"] = $("#gender").val().toString();
+			myformdata["nationality"] = $("#nationality").val().toString();
+
+			var json = JSON.stringify(myformdata);
+			alert(json);
+			
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "/saveEmployee",
+				data : json,
+				dataType : 'json',
+				success : function(data) {
+					console.log(json);
+					alert(json);
+					// Code to display the response.
+				}
+			});
+
+			//var json = JSON.stringify(myformdata);
+			//console.log(json);
+			//alert(json);
+		});
+	</script>
+	
+	<script>
+	
+	  function showValues() {
+	    var str = $( "form" ).serialize();
+	    $( "#results" ).text( str );
+	  }
+	  $( "input[type='text']" ).on( "keyup", showValues );
+	  $( "input[type='checkbox'], input[type='radio']" ).on( "click", showValues );
+	  $( "select" ).on( "change", showValues );
+	  showValues();
+	</script>
+	
+
+</body>
+</html>
