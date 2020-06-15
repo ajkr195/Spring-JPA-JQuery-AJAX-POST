@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Spring-JQuery</title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+<body>
+	<div class="container">
+
+
+		<div class="card">
+			<div class="card-header">Spring-JQuery</div>
+			<div class="card-body">
+				<div class="row justify-content-center">
+					<h5 class="card-title">Developer Details</h5>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="name" class="col-md-3 text-right text-muted">Id</label>
+					<div class="col-md-6">
+						<input class="form-control form-control-sm" type="text" id="id" />
+					</div>
+				</div>
+
+
+
+				<div class="form-group row">
+					<label for="name" class="col-md-3 text-right text-muted">First Name</label>
+					<div class="col-md-6">
+						<input class="form-control form-control-sm" type="text"
+							id="firstName" />
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="name" class="col-md-3 text-right text-muted">Last Name</label>
+					<div class="col-md-6">
+						<input class="form-control form-control-sm" type="text"
+							id="lastName" />
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="firstname" class="col-md-3 text-right text-muted"></label>
+					<div class="col-md-6">
+						<input class="btn btn-sm btn-block btn-primary" type="submit" id="submit"
+							value="Submit" />
+					</div>
+				</div>
+
+				<hr />
+				<div id="defectCountDiv" style="display: none">
+					<h3>Defects assigned to you:</h3>
+					High - <b><span id="highDefects"></span></b><br /> Medium - <b><span
+						id="mediumDefects"></span></b><br /> Low - <b><span
+						id="lowDefects"></span></b><br />
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery-validation/jquery.validate.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+	<script>
+		jQuery(document).ready(function($) {
+
+			$("#submit").click(function() {
+				var developerData = {};
+				developerData["id"] = $("#id").val();
+				developerData["firstName"] = $("#firstName").val();
+				developerData["lastName"] = $("#lastName").val();
+
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : "getDefectCount",
+					data : JSON.stringify(developerData),
+					dataType : 'json',
+					success : function(data) {
+						$('#defectCountDiv').show();
+						$('#highDefects').text(data.high);
+						$('#mediumDefects').text(data.medium);
+						$('#lowDefects').text(data.low);
+					}
+				});
+			});
+
+		});
+	</script>
+</body>
+</html>
