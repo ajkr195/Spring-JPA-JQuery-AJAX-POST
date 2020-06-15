@@ -19,6 +19,12 @@ public class AjaxHandlingController {
 		// process the developer object
 		// Your implementation. For demo hard-coded the Defect counts
 
+		// On front end you entered these values:
+
+		System.out.println(">>>>>>>>>>>       Developer ID - " + developer.getId());
+		System.out.println(">>>>>>>>>>>       Developer FirstName - " + developer.getFirstName());
+		System.out.println(">>>>>>>>>>>       Developer LastName - " + developer.getLastName());
+
 		DefectSeverityDetails defectSeverityDetails = new DefectSeverityDetails();
 		defectSeverityDetails.setHigh(3);
 		defectSeverityDetails.setMedium(2);
